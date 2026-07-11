@@ -67,6 +67,69 @@
     else if (diff === 0) cd.textContent = 'HEUTE! Ore Ore! 🥁';
   }
 
+  /* Chronik: Karten auf-/zuklappen */
+  document.querySelectorAll('.tl-card').forEach(function (card) {
+    function toggle() {
+      card.classList.toggle('open');
+      var more = card.querySelector('.tl-more');
+      if (more) more.textContent = card.classList.contains('open') ? 'Weniger ↑' : 'Mehr lesen ↓';
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* Chronik: Fortschrittslinie beim Scrollen */
+  var tl = document.getElementById('timeline');
+  if (tl) {
+    var updateTl = function () {
+      var r = tl.getBoundingClientRect();
+      var visible = Math.min(Math.max(window.innerHeight * 0.75 - r.top, 0), r.height);
+      tl.style.setProperty('--tlp', (visible / r.height * 100).toFixed(1) + '%');
+    };
+    window.addEventListener('scroll', updateTl, { passive: true });
+    updateTl();
+    setTimeout(updateTl, 900);
+  }
+
+  /* Admin: Album bearbeiten */
+  document.querySelectorAll('[data-edit-album]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var a = JSON.parse(btn.getAttribute('data-edit-album'));
+      document.getElementById('af-id').value = a.id;
+      document.getElementById('af-titel').value = a.titel;
+      document.getElementById('af-beschreibung').value = a.beschreibung || '';
+      document.getElementById('af-reset').style.display = 'inline-block';
+      document.getElementById('albumForm').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  var afReset = document.getElementById('af-reset');
+  if (afReset) afReset.addEventListener('click', function () {
+    document.getElementById('albumForm').reset();
+    document.getElementById('af-id').value = '';
+    afReset.style.display = 'none';
+  });
+
+  /* Admin: Chronik-Station bearbeiten */
+  document.querySelectorAll('[data-edit-chronik]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var c = JSON.parse(btn.getAttribute('data-edit-chronik'));
+      document.getElementById('cf-id').value = c.id;
+      document.getElementById('cf-jahr').value = c.jahr;
+      document.getElementById('cf-titel').value = c.titel;
+      document.getElementById('cf-text').value = c.text;
+      document.getElementById('cf-reset').style.display = 'inline-block';
+      document.getElementById('chronikForm').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  var cfReset = document.getElementById('cf-reset');
+  if (cfReset) cfReset.addEventListener('click', function () {
+    document.getElementById('chronikForm').reset();
+    document.getElementById('cf-id').value = '';
+    cfReset.style.display = 'none';
+  });
+
   /* Admin: Bericht bearbeiten */
   document.querySelectorAll('[data-edit-bericht]').forEach(function (btn) {
     btn.addEventListener('click', function () {
