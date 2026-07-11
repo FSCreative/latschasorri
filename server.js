@@ -70,10 +70,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 app.use('/media', express.static(path.join(DATA_DIR, 'media'), { maxAge: '7d' }));
+const BOOT = Date.now().toString(36); // Cache-Busting pro Deployment
 app.use((req, res, next) => {
   res.locals.s = db.settings;
   res.locals.admin = isAdmin(req);
   res.locals.path = req.path;
+  res.locals.v = BOOT;
   next();
 });
 
