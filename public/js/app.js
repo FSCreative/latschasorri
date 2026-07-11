@@ -9,6 +9,12 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  /* Fallback: falls der Observer (z. B. im Hintergrund-Tab) nicht feuert */
+  setTimeout(function () {
+    document.querySelectorAll('.reveal:not(.in)').forEach(function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 1.2) el.classList.add('in');
+    });
+  }, 800);
 
   /* "Mehr"-Sheet */
   var moreBtn = document.getElementById('moreBtn');
