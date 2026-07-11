@@ -125,7 +125,8 @@
     <label>Motto <input name="motto" value="<%= db.settings.motto %>"></label>
     <label>Kontakt-E-Mail <input name="email" type="email" value="<%= db.settings.email %>"></label>
     <label>Instagram-Benutzername <input name="instagramHandle" value="<%= db.settings.instagramHandle %>" placeholder="latschasorri"></label>
-    <label>Instagram-Widget-Code (optional – z. B. Gratis-Embed von snapwidget.com oder lightwidget.com; leer = Standard-Instagram-Embed) <textarea name="instagramEmbed" rows="4" placeholder="<iframe src=…></iframe>"><%= db.settings.instagramEmbed %></textarea></label>
+    <label>Instagram Access Token (Graph API – nativer Feed; Anleitung im README. Wird automatisch alle 60 Tage verlängert.) <textarea name="instagramToken" rows="2" placeholder="IGQW…"><%= db.settings.instagramToken || '' %></textarea></label>
+    <label>Instagram-Widget-Code (Fallback ohne Token – z. B. Gratis-Embed von snapwidget.com; leer = Standard-Instagram-Embed) <textarea name="instagramEmbed" rows="3" placeholder="<iframe src=…></iframe>"><%= db.settings.instagramEmbed %></textarea></label>
     <label>Termine – Überschrift <input name="termineTitle" value="<%= db.texts.termineTitle %>"></label>
     <label>Termine – Einleitung <input name="termineIntro" value="<%= db.texts.termineIntro %>"></label>
     <label>Gönner-Text <textarea name="goennerBody" rows="6"><%= db.texts.goennerBody %></textarea></label>

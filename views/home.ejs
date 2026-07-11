@@ -51,6 +51,16 @@
     <h2>Wir auf Instagram</h2>
     <a class="more" href="https://www.instagram.com/<%= s.instagramHandle %>/" target="_blank" rel="noopener">@<%= s.instagramHandle %> →</a>
   </div>
+  <% if (instaPosts && instaPosts.length) { %>
+  <div class="instagrid">
+    <% instaPosts.forEach(p => { %>
+    <a href="<%= p.link %>" target="_blank" rel="noopener" title="<%= p.caption %>">
+      <img loading="lazy" src="<%= p.img %>" alt="<%= p.caption || 'Instagram-Beitrag' %>">
+      <% if (p.video) { %><span class="playicon">▶</span><% } %>
+    </a>
+    <% }) %>
+  </div>
+  <% } else { %>
   <div class="instafeed">
     <% if (s.instagramEmbed) { %>
       <%- s.instagramEmbed %>
@@ -58,6 +68,7 @@
       <iframe src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
     <% } %>
   </div>
+  <% } %>
 </section>
 
 <section class="section reveal">
