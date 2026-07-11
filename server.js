@@ -94,10 +94,62 @@ function nextTermin() {
   return [...db.termine].sort((a, b) => a.datum.localeCompare(b.datum)).find(t => t.datum >= today);
 }
 
+/* ---------- Instagram Graph API ---------- */
+let igCache = { t: 0, posts: [] };
+function igToken() {
+  return (db.settings.instagramToken || '').trim() || process.env.INSTAGRAM_TOKEN || '';
+}
+async function getInstaPosts() {
+  const token = igToken();
+  if (!token) return null;
+  if (Date.now() - igCache.t < 30 * 60 * 1000) return igCache.posts;
+  try {
+    const url = 'https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=9&access_token=' + encodeURIComponent(token);
+    const r = await fetch(url);
+    const j = await r.json();
+    if (j.error) {
+      console.warn('Instagram Graph API: ' + j.error.message);
+      return igCache.posts.length ? igCache.posts : null;
+    }
+    igCache = {
+      t: Date.now(),
+      posts: (j.data || []).map(p => ({
+        img: p.media_type === 'VIDEO' ? (p.thumbnail_url || '') : p.media_url,
+        link: p.permalink,
+        caption: (p.caption || '').split('\n')[0].slice(0, 90),
+        video: p.media_type === 'VIDEO'
+      })).filter(p => p.img)
+    };
+    refreshIgToken();
+    return igCache.posts;
+  } catch (e) {
+    console.warn('Instagram Graph API: ' + e.message);
+    return igCache.posts.length ? igCache.posts : null;
+  }
+}
+/* Long-lived Token (60 Tage) automatisch verlängern – max. 1x pro Woche */
+async function refreshIgToken() {
+  const token = (db.settings.instagramToken || '').trim();
+  if (!token) return; // nur Tokens aus dem Admin können gespeichert werden
+  const last = db.settings.igRefreshedAt || 0;
+  if (Date.now() - last < 7 * 24 * 60 * 60 * 1000) return;
+  try {
+    const r = await fetch('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=' + encodeURIComponent(token));
+    const j = await r.json();
+    if (j.access_token) {
+      db.settings.instagramToken = j.access_token;
+      db.settings.igRefreshedAt = Date.now();
+      save();
+      console.log('Instagram-Token verlängert.');
+    }
+  } catch (e) { /* beim nächsten Mal erneut versuchen */ }
+}
+
 /* ================== ÖFFENTLICHE SEITEN ================== */
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   const berichte = [...db.berichte].sort((a, b) => b.datum.localeCompare(a.datum)).slice(0, 3);
-  res.render('home', { title: 'Home', texts: db.texts, next: nextTermin(), fmtDatum, berichte, galerie: db.galerie.slice(0, 6) });
+  const instaPosts = await getInstaPosts();
+  res.render('home', { title: 'Home', texts: db.texts, next: nextTermin(), fmtDatum, berichte, galerie: db.galerie.slice(0, 6), instaPosts });
 });
 
 app.get('/termine', (req, res) => {
@@ -184,6 +236,11 @@ app.post('/admin/texte', requireAdmin, (req, res) => {
   if (typeof req.body.motto === 'string') db.settings.motto = req.body.motto.trim();
   if (typeof req.body.email === 'string') db.settings.email = req.body.email.trim();
   if (typeof req.body.instagramHandle === 'string') db.settings.instagramHandle = req.body.instagramHandle.trim().replace(/^@/, '');
+  if (typeof req.body.instagramToken === 'string' && req.body.instagramToken.trim() !== db.settings.instagramToken) {
+    db.settings.instagramToken = req.body.instagramToken.trim();
+    db.settings.igRefreshedAt = Date.now();
+    igCache = { t: 0, posts: [] };
+  }
   if (typeof req.body.instagramEmbed === 'string') db.settings.instagramEmbed = req.body.instagramEmbed.trim();
   save();
   res.redirect('/admin?saved=texte#texte');
