@@ -1,0 +1,118 @@
+{
+  "settings": {
+    "siteName": "Guggamusik Partener Latschasorri",
+    "shortName": "Latschasorri",
+    "since": "1999",
+    "email": "partener.latschasorri@gmail.com",
+    "youtube": "https://www.youtube.com/channel/UCeUZH57lmahaOizGnKcKuCQ",
+    "archiveGallery": "http://latschasorri.com/Gallerie/",
+    "cloud": "http://latschasorri.com/Cloud/index.php/login",
+    "motto": "Ore Ore etz konn d'Latschasorri!!"
+  },
+  "texts": {
+    "homeTitle": "Hallo auf unserer Homepage",
+    "homeBody": "Die Faschingssaison 25/26 hat am 11.11.2025 begonnen.\nDiese Saison sind wir unter anderem wieder in Mödling.\nWeitere Infos folgen per Social Media.",
+    "termineTitle": "Termine 25/26",
+    "termineIntro": "Üseri Oftritt 2026 – hier findet ihr uns diese Saison:",
+    "goennerTitle": "Unsere Gönner",
+    "goennerBody": "Eine Namensliste unserer vielen Gönner wird man hier vergeblich suchen.\nWo fängt man an und wo hört man auf? Schnell hat man jemanden vergessen zu erwähnen. Oder soll man jemanden, der eine unserer Veranstaltungen besucht, nicht nennen?\n\nFür uns zählt JEDER und für uns sind ALLE WICHTIG!!\n\nAuf diesem Wege möchten wir uns für all EURE großzügigen Spenden, EURE Unterstützung, EURE Treue und EURE Freundschaft recht herzlich BEDANKEN.",
+    "chronikTitle": "Chronik",
+    "chronikBody": "…die Guggamusik „Partener Latschasorri\" wurde im Juni 1999 erstmals schriftlich erwähnt.\n\nAus Spaß an der Freude wurde über einen Postwurf Werbung für die Gründung einer Guggamusik im hintersten Montafon gemacht. Da Partenen ein ziemlich kleines Dörfchen ist und über 30 Vereine gemeldet sind, gab es wenig Hoffnung für Interessierte.\n\nDoch Erstens kommt es anders und Zweitens als man denkt…\n\nSchon bei der ersten Versammlung kamen über 30 Interessierte. Und schnell wurde klar: Ja, wir wollen „GUGGEN\". Jeder hatte innerhalb kürzester Zeit sein eigen erstandenes Instrument und dabei viel Geld investiert.\n\nJa und dann wussten wir nicht weiter…\n\nZwei Musikanten der Bürgermusik unserer Gemeinde halfen uns über die ersten Schwierigkeiten hinweg und haben mühsam versucht uns beizubringen, wie man ein Instrument hält und dann auch noch einen Ton herausbringt. Lange Proben, viel Schweiß und unzählige Stunden stellten uns auf eine harte Probe. Aber wir übten fleißig und wollten unbedingt zum Millennium 2000 unseren ersten Auftritt.\n\nUnd man höre und staune…\n\nTatsächlich rückten wir mit selbst gebastelten Hüten und insgesamt DREI Stücken selbstbewusst aus und marschierten durch unsere Dorfstraße hinauf. Und wir wurden nicht enttäuscht: Unser Auftritt wurde mit viel Applaus und unseren ersten Spenden honoriert.\n\nKurz darauf erstanden wir unser erstes Kostüm und konnten so gespannt in den ersten Fasching starten. Nach der ersten Saison stand für uns fest, dass wir unserem Verein einen Namen geben wollen und so wurde aus uns ein registrierter Verein, die Guggamusik „Partener Latschasorri\".\n\nDer Name leitet sich von den Kieferngewächsen ab, die man bei uns überall in höheren Lagen findet, auch „Latscha\" genannt. Und „Sorri\" – davon kann jeder Mann ein Liedchen singen, wenn er zu spät nach Hause kommt und seine Liebste nicht mehr ganz nett zu ihm ist. Also: „Latschasorri\"!\n\nInzwischen können wir schon mit einigen Fernsehauftritten beim ORF Kärnten in Klagenfurt, einer Einladung in Luxemburg bei der österreichischen Botschaft, diversen Benefizveranstaltungen, Straßenspektakeln im Sommer und vielen Auftritten im Tal und unserer Gemeinde glänzen.\n\nEin besonderer Dank gilt all jenen, die an uns geglaubt haben, uns tatkräftig und finanziell unterstützen oder als Publikum mit dabei sind."
+  },
+  "termine": [
+    { "id": "t1", "datum": "2026-01-10", "zeit": "ab 22:00 Uhr", "titel": "Fennga Party", "ort": "Kristbergsaal Dalaas" },
+    { "id": "t2", "datum": "2026-01-25", "zeit": "ab ca. 10:00 Uhr", "titel": "Rodelbude", "ort": "Vandans" },
+    { "id": "t3", "datum": "2026-01-25", "zeit": "ab 14:00 Uhr", "titel": "Faschingsomzug", "ort": "Vandans" },
+    { "id": "t4", "datum": "2026-01-31", "zeit": "ab ca. 14:00 Uhr", "titel": "Lammhütta", "ort": "Gaschurn" },
+    { "id": "t5", "datum": "2026-02-01", "zeit": "ab 14:00 Uhr", "titel": "Faschingsomzug", "ort": "Rungelin" },
+    { "id": "t6", "datum": "2026-02-07", "zeit": "ab 11:00 Uhr", "titel": "Faschingsomzug", "ort": "Lorüns" },
+    { "id": "t7", "datum": "2026-02-08", "zeit": "ab 14:00 Uhr", "titel": "Faschingsomzug", "ort": "Gaschorra" },
+    { "id": "t8", "datum": "2026-02-13", "zeit": "Fr 13.02. – Mo 16.02.", "titel": "Diverse Auftritte", "ort": "Mödling und Umgebung" },
+    { "id": "t9", "datum": "2026-02-17", "zeit": "ab 14:00 Uhr", "titel": "Faschingsomzug", "ort": "Za'Gallakilka" }
+  ],
+  "mitglieder": [
+    { "id": "m1", "name": "Ammann Aurelia", "rufname": "Aurelia", "seit": "2024", "instrument": "Trompete", "bild": "/media/mirror/aurelia.jpg", "kategorie": "aktiv" },
+    { "id": "m2", "name": "Ammann Madlen", "rufname": "Madlen", "seit": "2023", "instrument": "Trompete", "bild": "/media/mirror/madlen.jpg", "kategorie": "aktiv" },
+    { "id": "m3", "name": "Bargehr Daniela", "rufname": "Daniela", "seit": "2013", "instrument": "Trompete (im Moment a. D.)", "bild": "/media/mirror/daniela.jpg", "kategorie": "aktiv" },
+    { "id": "m4", "name": "Bitschnau Barbara", "rufname": "Barbara", "seit": "2024", "instrument": "Trompete", "bild": "/media/mirror/barbara-b.jpg", "kategorie": "aktiv" },
+    { "id": "m5", "name": "Butzerin Magdalena", "rufname": "Magdalena", "seit": "2022", "instrument": "Trompete", "bild": "/media/mirror/magdalena.jpg", "kategorie": "aktiv" },
+    { "id": "m6", "name": "Ganahl Barbara", "rufname": "Bäbi", "seit": "2012", "instrument": "Trompete", "bild": "/media/mirror/baebi.jpg", "kategorie": "aktiv" },
+    { "id": "m7", "name": "Kogoj Heinz", "rufname": "Däta", "seit": "1999", "instrument": "Bariton (a. D.)", "bild": "/media/mirror/heinz.jpg", "kategorie": "aktiv" },
+    { "id": "m8", "name": "Netzer Bettina", "rufname": "Bettina", "seit": "2008", "instrument": "Trompete (Teilzeit)", "bild": "/media/mirror/bettina.jpg", "kategorie": "aktiv" },
+    { "id": "m9", "name": "Netzer Simon", "rufname": "Simi", "seit": "1999", "instrument": "Schlagzeug", "bild": "/media/mirror/simon.jpg", "kategorie": "aktiv" },
+    { "id": "m10", "name": "Rudigier Kilian", "rufname": "Kili / Killer", "seit": "2024", "instrument": "Schnapswagen", "bild": "/media/mirror/kili.jpg", "kategorie": "aktiv" },
+    { "id": "m11", "name": "Rudigier Marika", "rufname": "Märi / Heidi", "seit": "2019", "instrument": "Posaune (im Moment a. D.)", "bild": "/media/mirror/marika.jpg", "kategorie": "aktiv" },
+    { "id": "m12", "name": "Saler Elias", "rufname": "Elias", "seit": "2010", "instrument": "Schlagzeug", "bild": "/media/mirror/elias.jpg", "kategorie": "aktiv" },
+    { "id": "m13", "name": "Saler Marlies", "rufname": "Mary", "seit": "2002", "instrument": "Glöggli", "bild": "/media/mirror/marlies.jpg", "kategorie": "aktiv" },
+    { "id": "m14", "name": "Saler Michael", "rufname": "Michl", "seit": "2009", "instrument": "Posaune", "bild": "/media/mirror/michael.jpg", "kategorie": "aktiv" },
+    { "id": "m15", "name": "Saler Nadine", "rufname": "Nadine", "seit": "2008", "instrument": "Trompete", "bild": "/media/mirror/nadine.jpg", "kategorie": "aktiv" },
+    { "id": "m16", "name": "Schuchter Daniel", "rufname": "Daniel", "seit": "2016", "instrument": "Große Trommel", "bild": "/media/mirror/daniel.jpg", "kategorie": "aktiv" },
+    { "id": "m17", "name": "Schuchter Sabrina", "rufname": "Sabi", "seit": "2006", "instrument": "Posaune", "bild": "/media/mirror/sabi.jpg", "kategorie": "aktiv" },
+    { "id": "m18", "name": "Tschofen Larissa", "rufname": "Larissa", "seit": "2021", "instrument": "Glöggli", "bild": "/media/mirror/larissa.jpg", "kategorie": "aktiv" },
+    { "id": "m19", "name": "Wieser Roman", "rufname": "Roman", "seit": "2023", "instrument": "Große Trommel", "bild": "/media/mirror/roman.jpg", "kategorie": "aktiv" },
+    { "id": "e1", "name": "Saler Sabine", "rufname": "Sabine", "seit": "Ehrenmitglied seit 2023", "instrument": "Förderer und Fan", "bild": "", "kategorie": "ehren" },
+    { "id": "e2", "name": "Mattle Monika", "rufname": "Monika", "seit": "1999 bis 2014", "instrument": "Trompete (a. D.)", "bild": "/media/mirror/monika.jpg", "kategorie": "ehren" },
+    { "id": "e3", "name": "Tschanhenz Konstanz", "rufname": "Stromi", "seit": "1999 bis 2013", "instrument": "Posaune (a. D.)", "bild": "/media/mirror/konstanz.jpg", "kategorie": "ehren" },
+    { "id": "e4", "name": "Kogoj Manuela", "rufname": "Manuela", "seit": "1999 bis 2014", "instrument": "Trompete (a. D.)", "bild": "/media/mirror/manuela.jpg", "kategorie": "ehren" },
+    { "id": "e5", "name": "Netzer Sonja", "rufname": "Tenta", "seit": "seit 1999", "instrument": "Trompete (a. D.), gute Seele", "bild": "/media/mirror/sonja.jpg", "kategorie": "ehren" },
+    { "id": "e6", "name": "Mattle Marlene", "rufname": "Marlene", "seit": "seit 1999", "instrument": "Trompete (a. D.)", "bild": "/media/mirror/marlene.jpg", "kategorie": "ehren" }
+  ],
+  "vorstand": [
+    { "rolle": "Obmann", "name": "Saler Elias" },
+    { "rolle": "Stv. Obfrau", "name": "Tschofen Larissa" },
+    { "rolle": "Musikalischer Leiter", "name": "Saler Michael" },
+    { "rolle": "Kassierin", "name": "Rudigier Marika" },
+    { "rolle": "Schriftführerin", "name": "Saler Nadine" }
+  ],
+  "vorstandBild": "/media/mirror/vorstand-2023.jpg",
+  "instrumente": [
+    {
+      "id": "i1",
+      "name": "Trompeten",
+      "bild": "/media/mirror/trompeten.jpg",
+      "gruppen": [
+        { "titel": "1. Stimme", "namen": ["Nadine Saler", "Madlen Ammann", "Daniela Bargehr (im Moment a. D.)", "Bettina Netzer (im Moment Teilzeit)"] },
+        { "titel": "2. Stimme", "namen": ["Magdalena Butzerin", "Barbara Ganahl", "Aurelia Ammann", "Barbara Bitschnau"] }
+      ]
+    },
+    {
+      "id": "i2",
+      "name": "Posaunen",
+      "bild": "/media/mirror/posaunen.jpg",
+      "gruppen": [
+        { "titel": "Posaunen", "namen": ["Michael Saler", "Sabrina Schuchter", "Marika Rudigier (im Moment a. D.)"] }
+      ]
+    },
+    {
+      "id": "i3",
+      "name": "Schlagzeug, Große Trommel & Glöggli",
+      "bild": "/media/mirror/schlagwerk.jpg",
+      "gruppen": [
+        { "titel": "Schlagzeuger", "namen": ["Simon Netzer", "Elias Saler"] },
+        { "titel": "Große Trommel", "namen": ["Daniel Schuchter", "Roman Wieser"] },
+        { "titel": "Glöggli", "namen": ["Marlies Saler", "Larissa Tschofen"] }
+      ]
+    }
+  ],
+  "lieder": {
+    "saal": ["Vain Glory Opera (Einmarsch)", "Der Himmel Brennt", "Excited", "Sister Act (I Will Follow Him)", "I Want You To Want Me", "TAKT", "Dschinghis Khan", "Des Erscht", "Eine Neue Liebe", "Weiß Der Geier", "Goodbye My Love (Ausmarsch)"],
+    "lauf": ["I Can See Clearly Now", "Volare", "Hang On Sloopy", "Ein Schiff Wird Kommen", "Gugga 2", "The Lion Sleeps Tonight", "I Want To Break Free", "Rock Arround The Clock"]
+  },
+  "berichte": [
+    {
+      "id": "b1",
+      "slug": "faschingssaison-25-26",
+      "titel": "Faschingssaison 25/26 hat begonnen!",
+      "datum": "2025-11-11",
+      "bild": "/media/mirror/mannschaft-wien-2024.jpg",
+      "body": "Am 11.11.2025 um 11:11 Uhr war es wieder so weit – die fünfte Jahreszeit hat begonnen!\n\nDiese Saison sind wir unter anderem wieder in Mödling unterwegs. Alle Termine findet ihr wie immer unter Termine.\n\nOre Ore etz konn d'Latschasorri!!"
+    }
+  ],
+  "galerie": [
+    { "id": "g1", "bild": "/media/mirror/mannschaft-wien-2024.jpg", "titel": "Unsere Mannschaft in Wien 2024" },
+    { "id": "g2", "bild": "/media/mirror/vorstand-2023.jpg", "titel": "Unser Vorstand" },
+    { "id": "g3", "bild": "/media/mirror/trompeten.jpg", "titel": "Trompeten im Einsatz" },
+    { "id": "g4", "bild": "/media/mirror/posaunen.jpg", "titel": "Posaunen" },
+    { "id": "g5", "bild": "/media/mirror/schlagwerk.jpg", "titel": "Schlagwerk" }
+  ]
+}
