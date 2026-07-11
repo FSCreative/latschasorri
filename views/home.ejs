@@ -1,6 +1,7 @@
 <%- include('partials/header') %>
 
 <section class="hero">
+  <div class="notes-fx" aria-hidden="true"><span>♪</span><span>♫</span><span>♪</span><span>♬</span><span>♪</span><span>♫</span></div>
   <div class="hero-inner reveal">
     <p class="eyebrow">Guggamusik aus Partenen · seit <%= s.since %></p>
     <h1>Ore Ore –<br><span class="grad">etz konn d'Latschasorri!</span></h1>
@@ -33,13 +34,14 @@
     <a class="more" href="/berichte">Alle Berichte →</a>
   </div>
   <div class="cards">
-    <% berichte.forEach(b => { const d = fmtDatum(b.datum); %>
-    <a class="card post" href="/berichte/<%= b.slug %>">
+    <% berichte.forEach((b, i) => { const d = fmtDatum(b.datum); %>
+    <a class="card post <%= i === 0 ? 'featured' : '' %>" href="/berichte/<%= b.slug %>">
       <% if (b.bild) { %><div class="card-img"><img loading="lazy" src="<%= b.bild %>" alt=""></div><% } %>
       <div class="card-body">
         <time><%= d.lang %></time>
         <h3><%= b.titel %></h3>
-        <p><%= b.body.split('\n')[0].slice(0, 120) %>…</p>
+        <p><%= b.body.split('\n')[0].slice(0, i === 0 ? 220 : 120) %>…</p>
+        <span class="readmore">Weiterlesen →</span>
       </div>
     </a>
     <% }) %>
@@ -49,26 +51,38 @@
 <section class="section reveal">
   <div class="sec-head">
     <h2>Wir auf Instagram</h2>
-    <a class="more" href="https://www.instagram.com/<%= s.instagramHandle %>/" target="_blank" rel="noopener">@<%= s.instagramHandle %> →</a>
   </div>
-  <% if (instaPosts && instaPosts.length) { %>
-  <div class="instagrid">
-    <% instaPosts.forEach(p => { %>
-    <a href="<%= p.link %>" target="_blank" rel="noopener" title="<%= p.caption %>">
-      <img loading="lazy" src="<%= p.img %>" alt="<%= p.caption || 'Instagram-Beitrag' %>">
-      <% if (p.video) { %><span class="playicon">▶</span><% } %>
-    </a>
-    <% }) %>
+  <div class="insta-wrap">
+    <aside class="insta-side">
+      <img class="insta-logo" src="/media/mirror/logo.png" alt="Latschasorri" onerror="this.style.display='none'">
+      <h3>@<%= s.instagramHandle %></h3>
+      <p class="insta-name">Partener Latschasorri</p>
+      <p class="insta-text">Fotos, Videos und G'schichten direkt vom Umzug – folg üs und verpass koan Auftritt!</p>
+      <a class="btn primary" href="https://www.instagram.com/<%= s.instagramHandle %>/" target="_blank" rel="noopener">📸 Folgen</a>
+      <a class="btn ghost" href="<%= s.youtube %>" target="_blank" rel="noopener">▶ YouTube</a>
+    </aside>
+    <div class="insta-main">
+      <% if (instaPosts && instaPosts.length) { %>
+      <div class="instagrid">
+        <% instaPosts.forEach(p => { %>
+        <a href="<%= p.link %>" target="_blank" rel="noopener">
+          <img loading="lazy" src="<%= p.img %>" alt="<%= p.caption || 'Instagram-Beitrag' %>">
+          <% if (p.video) { %><span class="playicon">▶</span><% } %>
+          <% if (p.caption) { %><span class="insta-cap"><%= p.caption %></span><% } %>
+        </a>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <div class="instafeed">
+        <% if (s.instagramEmbed) { %>
+          <%- s.instagramEmbed %>
+        <% } else { %>
+          <iframe src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
   </div>
-  <% } else { %>
-  <div class="instafeed">
-    <% if (s.instagramEmbed) { %>
-      <%- s.instagramEmbed %>
-    <% } else { %>
-      <iframe src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
-    <% } %>
-  </div>
-  <% } %>
 </section>
 
 <section class="section reveal">
