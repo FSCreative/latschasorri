@@ -242,6 +242,14 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(transparent, rgba(0,0,0,.75)); color: #fff;
 }
 
+/* ===== Instagram-Feed ===== */
+.instafeed {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; padding: 8px;
+}
+.instafeed iframe { width: 100%; height: 480px; border: 0; border-radius: 12px; background: #fff; }
+@media (min-width: 760px) { .instafeed iframe { height: 560px; } }
+
 /* ===== Artikel ===== */
 .article { max-width: 720px; margin: 20px auto 0; }
 .article .back { display: inline-block; margin-bottom: 18px; color: var(--muted); }
