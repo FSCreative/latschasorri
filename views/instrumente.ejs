@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>Instrumente</h1>
+  <p>Blech, Trommeln und Glöggli – so klingt Latschasorri.</p>
+</section>
+
+<% instrumente.forEach((inst, idx) => { %>
+<section class="instrument reveal <%= idx % 2 ? 'flip' : '' %>">
+  <div class="inst-img"><img loading="lazy" src="<%= inst.bild %>" alt="<%= inst.name %>" data-lightbox></div>
+  <div class="inst-body">
+    <h2><%= inst.name %></h2>
+    <% inst.gruppen.forEach(g => { %>
+    <div class="inst-group">
+      <h4><%= g.titel %></h4>
+      <ul>
+        <% g.namen.forEach(n => { %><li><%= n %></li><% }) %>
+      </ul>
+    </div>
+    <% }) %>
+  </div>
+</section>
+<% }) %>
+
+<%- include('partials/footer') %>

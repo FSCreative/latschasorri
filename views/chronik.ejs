@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1><%= texts.chronikTitle %></h1>
+  <p>Wie aus einem Postwurf eine Guggamusik wurde.</p>
+</section>
+
+<article class="article reveal">
+  <div class="article-body chronik">
+    <% texts.chronikBody.split('\n').filter(p => p.trim()).forEach(p => { %><p><%= p %></p><% }) %>
+  </div>
+</article>
+
+<%- include('partials/footer') %>

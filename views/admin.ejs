@@ -1,0 +1,135 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>⚙ Admin-Bereich</h1>
+  <p>Fotos, Berichte, Termine, Mitglieder und Texte verwalten.</p>
+  <% if (saved) { %><p class="saved">✓ Gespeichert!</p><% } %>
+</section>
+
+<div class="chips reveal">
+  <button class="chip on" data-tab="a-berichte">📝 Berichte</button>
+  <button class="chip" data-tab="a-galerie">📷 Fotos</button>
+  <button class="chip" data-tab="a-termine">📅 Termine</button>
+  <button class="chip" data-tab="a-mitglieder">🧑‍🤝‍🧑 Mitglieder</button>
+  <button class="chip" data-tab="a-texte">✏️ Texte</button>
+</div>
+
+<!-- ===== Berichte ===== -->
+<section class="tab adminpanel" id="tab-a-berichte">
+  <h2 id="berichte">Neuer Bericht</h2>
+  <form method="post" action="/admin/berichte" enctype="multipart/form-data" class="adminform" id="berichtForm">
+    <input type="hidden" name="id" id="bf-id">
+    <label>Titel <input name="titel" id="bf-titel" required></label>
+    <label>Datum <input type="date" name="datum" id="bf-datum" value="<%= new Date().toISOString().slice(0,10) %>"></label>
+    <label>Titelbild (optional) <input type="file" name="bild" accept="image/*"></label>
+    <label>Text <textarea name="body" id="bf-body" rows="10" placeholder="Absätze durch Leerzeilen trennen…" required></textarea></label>
+    <button class="btn primary" type="submit">Bericht speichern</button>
+    <button class="btn ghost" type="button" id="bf-reset" style="display:none">Neu / Abbrechen</button>
+  </form>
+
+  <h2>Vorhandene Berichte</h2>
+  <ul class="adminlist">
+    <% berichte.forEach(b => { %>
+    <li>
+      <span><strong><%= b.titel %></strong> · <%= b.datum %></span>
+      <span class="actions">
+        <button class="btn mini" type="button" data-edit-bericht='<%- JSON.stringify({id:b.id,titel:b.titel,datum:b.datum,body:b.body}).replace(/'/g,"&#39;") %>'>Bearbeiten</button>
+        <form method="post" action="/admin/berichte/<%= b.id %>/delete" onsubmit="return confirm('Bericht wirklich löschen?')"><button class="btn mini danger" type="submit">Löschen</button></form>
+      </span>
+    </li>
+    <% }) %>
+  </ul>
+</section>
+
+<!-- ===== Galerie ===== -->
+<section class="tab adminpanel hidden" id="tab-a-galerie">
+  <h2 id="galerie">Fotos hochladen</h2>
+  <form method="post" action="/admin/galerie" enctype="multipart/form-data" class="adminform">
+    <label>Bilder (mehrere möglich) <input type="file" name="bilder" accept="image/*" multiple required></label>
+    <label>Bildunterschrift (für alle) <input name="titel" placeholder="z. B. Umzug Vandans 2026"></label>
+    <button class="btn primary" type="submit">Hochladen</button>
+  </form>
+
+  <h2>Galerie verwalten</h2>
+  <div class="admingrid">
+    <% [...db.galerie].reverse().forEach(g => { %>
+    <figure>
+      <img src="<%= g.bild %>" alt="">
+      <figcaption><%= g.titel || '–' %></figcaption>
+      <form method="post" action="/admin/galerie/<%= g.id %>/delete" onsubmit="return confirm('Foto löschen?')"><button class="btn mini danger" type="submit">✕</button></form>
+    </figure>
+    <% }) %>
+  </div>
+</section>
+
+<!-- ===== Termine ===== -->
+<section class="tab adminpanel hidden" id="tab-a-termine">
+  <h2 id="termine">Neuer Termin</h2>
+  <form method="post" action="/admin/termine" class="adminform row">
+    <label>Datum <input type="date" name="datum" required></label>
+    <label>Zeit <input name="zeit" placeholder="ab 14:00 Uhr" required></label>
+    <label>Titel <input name="titel" placeholder="Faschingsomzug" required></label>
+    <label>Ort <input name="ort" placeholder="Vandans" required></label>
+    <button class="btn primary" type="submit">Hinzufügen</button>
+  </form>
+
+  <ul class="adminlist">
+    <% termine.forEach(t => { %>
+    <li>
+      <span><strong><%= t.datum %></strong> · <%= t.zeit %> · <%= t.titel %>, <%= t.ort %></span>
+      <form method="post" action="/admin/termine/<%= t.id %>/delete" onsubmit="return confirm('Termin löschen?')"><button class="btn mini danger" type="submit">Löschen</button></form>
+    </li>
+    <% }) %>
+  </ul>
+</section>
+
+<!-- ===== Mitglieder ===== -->
+<section class="tab adminpanel hidden" id="tab-a-mitglieder">
+  <h2 id="mitglieder">Mitglied anlegen / bearbeiten</h2>
+  <form method="post" action="/admin/mitglieder" enctype="multipart/form-data" class="adminform row" id="mitgliedForm">
+    <input type="hidden" name="id" id="mf-id">
+    <label>Name <input name="name" id="mf-name" placeholder="Nachname Vorname" required></label>
+    <label>Rufname <input name="rufname" id="mf-rufname"></label>
+    <label>Dabei seit <input name="seit" id="mf-seit" placeholder="2024"></label>
+    <label>Instrument <input name="instrument" id="mf-instrument" placeholder="Trompete"></label>
+    <label>Kategorie
+      <select name="kategorie" id="mf-kategorie">
+        <option value="aktiv">Aktiv</option>
+        <option value="ehren">Ehrenmitglied</option>
+      </select>
+    </label>
+    <label>Foto <input type="file" name="bild" accept="image/*"></label>
+    <button class="btn primary" type="submit">Speichern</button>
+    <button class="btn ghost" type="button" id="mf-reset" style="display:none">Neu / Abbrechen</button>
+  </form>
+
+  <ul class="adminlist">
+    <% db.mitglieder.forEach(m => { %>
+    <li>
+      <span><strong><%= m.name %></strong> („<%= m.rufname %>") · <%= m.instrument %> · <%= m.kategorie %></span>
+      <span class="actions">
+        <button class="btn mini" type="button" data-edit-mitglied='<%- JSON.stringify({id:m.id,name:m.name,rufname:m.rufname,seit:m.seit,instrument:m.instrument,kategorie:m.kategorie}).replace(/'/g,"&#39;") %>'>Bearbeiten</button>
+        <form method="post" action="/admin/mitglieder/<%= m.id %>/delete" onsubmit="return confirm('Mitglied löschen?')"><button class="btn mini danger" type="submit">Löschen</button></form>
+      </span>
+    </li>
+    <% }) %>
+  </ul>
+</section>
+
+<!-- ===== Texte ===== -->
+<section class="tab adminpanel hidden" id="tab-a-texte">
+  <h2 id="texte">Seitentexte</h2>
+  <form method="post" action="/admin/texte" class="adminform">
+    <label>Begrüßung (Startseite, Titel) <input name="homeTitle" value="<%= db.texts.homeTitle %>"></label>
+    <label>Startseiten-Text <textarea name="homeBody" rows="4"><%= db.texts.homeBody %></textarea></label>
+    <label>Motto <input name="motto" value="<%= db.settings.motto %>"></label>
+    <label>Kontakt-E-Mail <input name="email" type="email" value="<%= db.settings.email %>"></label>
+    <label>Termine – Überschrift <input name="termineTitle" value="<%= db.texts.termineTitle %>"></label>
+    <label>Termine – Einleitung <input name="termineIntro" value="<%= db.texts.termineIntro %>"></label>
+    <label>Gönner-Text <textarea name="goennerBody" rows="6"><%= db.texts.goennerBody %></textarea></label>
+    <label>Chronik <textarea name="chronikBody" rows="14"><%= db.texts.chronikBody %></textarea></label>
+    <button class="btn primary" type="submit">Texte speichern</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

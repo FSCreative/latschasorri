@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1><%= texts.goennerTitle %></h1>
+</section>
+
+<article class="article reveal goenner">
+  <div class="article-body big">
+    <% texts.goennerBody.split('\n').filter(p => p.trim()).forEach(p => { %><p><%= p %></p><% }) %>
+  </div>
+  <p class="thanks">💚 DANKE! 💚</p>
+</article>
+
+<%- include('partials/footer') %>

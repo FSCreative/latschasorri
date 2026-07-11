@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1><%= texts.termineTitle %></h1>
+  <p><%= texts.termineIntro %></p>
+</section>
+
+<section class="timeline reveal">
+  <% termine.forEach(t => { const d = fmtDatum(t.datum); const past = t.datum < today; %>
+  <article class="gig <%= past ? 'past' : '' %>">
+    <div class="gig-date"><span><%= d.tag %></span><strong><%= d.nr %></strong><span><%= d.monat %></span></div>
+    <div class="gig-body">
+      <h3><%= t.titel %></h3>
+      <p class="gig-ort">📍 <%= t.ort %></p>
+      <p class="gig-zeit">🕑 <%= t.zeit %></p>
+    </div>
+    <% if (!past) { %><span class="badge">bald</span><% } %>
+  </article>
+  <% }) %>
+</section>
+
+<p class="hint reveal">Änderungen möglich – aktuelle Infos gibt's auch auf Social Media.</p>
+
+<%- include('partials/footer') %>

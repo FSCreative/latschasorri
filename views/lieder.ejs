@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>Unsere Lieder</h1>
+  <p>Vom Einmarsch bis zum Ausmarsch – unser Repertoire.</p>
+</section>
+
+<div class="songcols">
+  <section class="songlist reveal">
+    <h2>🎪 Saalprogramm</h2>
+    <ol>
+      <% lieder.saal.forEach(l => { %><li><span class="note">♪</span> <%= l %></li><% }) %>
+    </ol>
+  </section>
+  <section class="songlist reveal">
+    <h2>🥁 Laufprogramm</h2>
+    <ol>
+      <% lieder.lauf.forEach(l => { %><li><span class="note">♪</span> <%= l %></li><% }) %>
+    </ol>
+  </section>
+</div>
+
+<p class="hint reveal">Live hören? Schau auf unserem <a href="<%= s.youtube %>" target="_blank" rel="noopener">YouTube-Kanal</a> vorbei!</p>
+
+<%- include('partials/footer') %>

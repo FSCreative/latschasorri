@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<article class="article reveal">
+  <a class="back" href="/berichte">← Alle Berichte</a>
+  <time><%= fmtDatum(b.datum).lang %></time>
+  <h1><%= b.titel %></h1>
+  <% if (b.bild) { %><img class="article-img" src="<%= b.bild %>" alt="" data-lightbox><% } %>
+  <div class="article-body">
+    <% b.body.split('\n').filter(p => p.trim()).forEach(p => { %><p><%= p %></p><% }) %>
+  </div>
+</article>
+
+<%- include('partials/footer') %>

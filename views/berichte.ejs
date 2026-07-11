@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>Berichte</h1>
+  <p>Neuigkeiten, Rückblicke und G'schichten rund um die Latschasorri.</p>
+</section>
+
+<% if (berichte.length === 0) { %>
+<p class="hint reveal">Noch keine Berichte online.</p>
+<% } %>
+
+<section class="cards reveal">
+  <% berichte.forEach(b => { const d = fmtDatum(b.datum); %>
+  <a class="card post" href="/berichte/<%= b.slug %>">
+    <% if (b.bild) { %><div class="card-img"><img loading="lazy" src="<%= b.bild %>" alt=""></div><% } %>
+    <div class="card-body">
+      <time><%= d.lang %></time>
+      <h3><%= b.titel %></h3>
+      <p><%= b.body.split('\n')[0].slice(0, 160) %>…</p>
+      <span class="readmore">Weiterlesen →</span>
+    </div>
+  </a>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

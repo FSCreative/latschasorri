@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>Galerie</h1>
+  <p>Aktuelle Fotos – ältere Schätze findest du im <a href="<%= s.archiveGallery %>" target="_blank" rel="noopener">Galerie-Archiv</a>.</p>
+</section>
+
+<% if (galerie.length === 0) { %>
+<p class="hint reveal">Noch keine Fotos – bald gibt's hier was zu sehen!</p>
+<% } %>
+
+<section class="masonry reveal">
+  <% galerie.forEach(g => { %>
+  <figure class="shot">
+    <img loading="lazy" src="<%= g.bild %>" alt="<%= g.titel %>" data-lightbox>
+    <% if (g.titel) { %><figcaption><%= g.titel %></figcaption><% } %>
+  </figure>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

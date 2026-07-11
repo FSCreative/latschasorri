@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal" style="text-align:center">
+  <h1>Admin-Login</h1>
+  <p>Interner Bereich für Fotos, Berichte und Texte.</p>
+</section>
+
+<form class="loginbox reveal" method="post" action="/admin/login">
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+  <label for="pw">Passwort</label>
+  <input id="pw" type="password" name="password" autocomplete="current-password" autofocus required>
+  <button class="btn primary" type="submit">Anmelden</button>
+</form>
+
+<%- include('partials/footer') %>

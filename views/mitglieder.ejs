@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <h1>Mitglieder</h1>
+  <p>Die Truppe hinter dem Lärm – seit 1999 mit Herz und Blech dabei.</p>
+</section>
+
+<div class="chips reveal" role="tablist">
+  <button class="chip on" data-tab="aktive">Aktive (<%= aktive.length %>)</button>
+  <button class="chip" data-tab="vorstand">Vorstand</button>
+  <button class="chip" data-tab="ehren">Ehrenmitglieder (<%= ehren.length %>)</button>
+</div>
+
+<section class="tab reveal" id="tab-aktive">
+  <div class="members">
+    <% aktive.forEach(m => { %>
+    <article class="member">
+      <% if (m.bild) { %><img loading="lazy" src="<%= m.bild %>" alt="<%= m.name %>" data-lightbox>
+      <% } else { %><div class="member-noimg">🎭</div><% } %>
+      <div class="member-info">
+        <h3><%= m.name %></h3>
+        <p>„<%= m.rufname %>"</p>
+        <p class="mi"><span>🎺</span> <%= m.instrument %></p>
+        <p class="mi"><span>📅</span> seit <%= m.seit %></p>
+      </div>
+    </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="tab hidden" id="tab-vorstand">
+  <div class="board">
+    <img class="board-img" src="<%= vorstandBild %>" alt="Vorstand" data-lightbox>
+    <ul class="board-list">
+      <% vorstand.forEach(v => { %>
+      <li><span class="role"><%= v.rolle %></span><strong><%= v.name %></strong></li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
+
+<section class="tab hidden" id="tab-ehren">
+  <div class="members">
+    <% ehren.forEach(m => { %>
+    <article class="member ehren">
+      <% if (m.bild) { %><img loading="lazy" src="<%= m.bild %>" alt="<%= m.name %>" data-lightbox>
+      <% } else { %><div class="member-noimg">⭐</div><% } %>
+      <div class="member-info">
+        <h3><%= m.name %></h3>
+        <p>„<%= m.rufname %>"</p>
+        <p class="mi"><span>🎺</span> <%= m.instrument %></p>
+        <p class="mi"><span>📅</span> <%= m.seit %></p>
+      </div>
+    </article>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
