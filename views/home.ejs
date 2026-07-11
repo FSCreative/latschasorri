@@ -48,6 +48,20 @@
 
 <section class="section reveal">
   <div class="sec-head">
+    <h2>Wir auf Instagram</h2>
+    <a class="more" href="https://www.instagram.com/<%= s.instagramHandle %>/" target="_blank" rel="noopener">@<%= s.instagramHandle %> →</a>
+  </div>
+  <div class="instafeed">
+    <% if (s.instagramEmbed) { %>
+      <%- s.instagramEmbed %>
+    <% } else { %>
+      <iframe src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+    <% } %>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="sec-head">
     <h2>Aus der Galerie</h2>
     <a class="more" href="/galerie">Zur Galerie →</a>
   </div>
