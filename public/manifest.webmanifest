@@ -1,0 +1,11 @@
+{
+  "name": "Guggamusik Partener Latschasorri",
+  "short_name": "Latschasorri",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b120b",
+  "theme_color": "#0b120b",
+  "icons": [
+    { "src": "/media/mirror/logo.png", "sizes": "any", "type": "image/png" }
+  ]
+}
