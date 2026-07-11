@@ -183,6 +183,8 @@ app.post('/admin/texte', requireAdmin, (req, res) => {
   }
   if (typeof req.body.motto === 'string') db.settings.motto = req.body.motto.trim();
   if (typeof req.body.email === 'string') db.settings.email = req.body.email.trim();
+  if (typeof req.body.instagramHandle === 'string') db.settings.instagramHandle = req.body.instagramHandle.trim().replace(/^@/, '');
+  if (typeof req.body.instagramEmbed === 'string') db.settings.instagramEmbed = req.body.instagramEmbed.trim();
   save();
   res.redirect('/admin?saved=texte#texte');
 });
