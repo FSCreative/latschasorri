@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title><%= title %> · <%= s.shortName %></title>
+<meta name="description" content="Guggamusik Partener Latschasorri – seit 1999 Fasching, Musik und gute Laune aus Partenen im Montafon.">
+<meta name="theme-color" content="#0b120b">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/media/mirror/logo.png">
+<link rel="apple-touch-icon" href="/media/mirror/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <img src="/media/mirror/logo.png" alt="Latschasorri Logo" onerror="this.style.display='none'">
+    <span class="brand-text">
+      <strong>Latschasorri</strong>
+      <small>Guggamusik Partenen · seit <%= s.since %></small>
+    </span>
+  </a>
+  <nav class="desktopnav">
+    <a href="/" class="<%= path==='/' ? 'on' : '' %>">Home</a>
+    <a href="/termine" class="<%= path.startsWith('/termine') ? 'on' : '' %>">Termine</a>
+    <a href="/mitglieder" class="<%= path.startsWith('/mitglieder') ? 'on' : '' %>">Mitglieder</a>
+    <a href="/instrumente" class="<%= path.startsWith('/instrumente') ? 'on' : '' %>">Instrumente</a>
+    <a href="/lieder" class="<%= path.startsWith('/lieder') ? 'on' : '' %>">Lieder</a>
+    <a href="/galerie" class="<%= path.startsWith('/galerie') ? 'on' : '' %>">Galerie</a>
+    <a href="/berichte" class="<%= path.startsWith('/berichte') ? 'on' : '' %>">Berichte</a>
+    <a href="/chronik" class="<%= path.startsWith('/chronik') ? 'on' : '' %>">Chronik</a>
+    <a href="/goenner" class="<%= path.startsWith('/goenner') ? 'on' : '' %>">Gönner</a>
+  </nav>
+</header>
+
+<main class="page">
