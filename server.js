@@ -21,6 +21,20 @@ let db = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 function save() {
   fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2));
 }
+
+/* Migration & fehlende Schlüssel aus dem Seed ergänzen */
+const seedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8'));
+if (!db.alben && Array.isArray(db.galerie) && db.galerie.length) {
+  db.alben = [{ id: 'a-start', titel: 'Impressionen', beschreibung: '', fotos: db.galerie }];
+  delete db.galerie;
+}
+for (const k of Object.keys(seedData)) {
+  if (db[k] === undefined) db[k] = seedData[k];
+}
+for (const k of Object.keys(seedData.settings)) {
+  if (db.settings[k] === undefined) db.settings[k] = seedData.settings[k];
+}
+save();
 const uid = () => crypto.randomBytes(5).toString('hex');
 
 /* ---------- Uploads ---------- */
@@ -151,7 +165,8 @@ async function refreshIgToken() {
 app.get('/', async (req, res) => {
   const berichte = [...db.berichte].sort((a, b) => b.datum.localeCompare(a.datum)).slice(0, 3);
   const instaPosts = await getInstaPosts();
-  res.render('home', { title: 'Home', texts: db.texts, next: nextTermin(), fmtDatum, berichte, galerie: db.galerie.slice(0, 6), instaPosts });
+  const fotos = db.alben.flatMap(a => a.fotos).slice(-6).reverse();
+  res.render('home', { title: 'Home', texts: db.texts, next: nextTermin(), fmtDatum, berichte, galerie: fotos, instaPosts });
 });
 
 app.get('/termine', (req, res) => {
@@ -178,7 +193,13 @@ app.get('/lieder', (req, res) => {
 });
 
 app.get('/galerie', (req, res) => {
-  res.render('galerie', { title: 'Galerie', galerie: [...db.galerie].reverse() });
+  res.render('galerie', { title: 'Galerie', alben: [...db.alben].reverse() });
+});
+
+app.get('/galerie/:id', (req, res) => {
+  const album = db.alben.find(a => a.id === req.params.id);
+  if (!album) return res.status(404).render('404', { title: 'Nicht gefunden' });
+  res.render('album', { title: album.titel, album });
 });
 
 app.get('/berichte', (req, res) => {
@@ -193,7 +214,7 @@ app.get('/berichte/:slug', (req, res) => {
 });
 
 app.get('/chronik', (req, res) => {
-  res.render('chronik', { title: 'Chronik', texts: db.texts });
+  res.render('chronik', { title: 'Chronik', chronik: db.chronik });
 });
 
 app.get('/goenner', (req, res) => {
@@ -282,18 +303,55 @@ app.post('/admin/berichte/:id/delete', requireAdmin, (req, res) => {
   res.redirect('/admin#berichte');
 });
 
-/* --- Galerie --- */
-app.post('/admin/galerie', requireAdmin, upload.array('bilder', 20), (req, res) => {
-  (req.files || []).forEach(f => {
-    db.galerie.push({ id: uid(), bild: '/media/uploads/' + f.filename, titel: req.body.titel || '' });
-  });
+/* --- Galerie: Alben --- */
+app.post('/admin/alben', requireAdmin, (req, res) => {
+  const existing = req.body.id && db.alben.find(a => a.id === req.body.id);
+  if (existing) {
+    existing.titel = req.body.titel;
+    existing.beschreibung = req.body.beschreibung || '';
+  } else {
+    db.alben.push({ id: uid(), titel: req.body.titel, beschreibung: req.body.beschreibung || '', fotos: [] });
+  }
   save();
-  res.redirect('/admin?saved=galerie#galerie');
+  res.redirect('/admin?saved=album#galerie');
 });
-app.post('/admin/galerie/:id/delete', requireAdmin, (req, res) => {
-  db.galerie = db.galerie.filter(g => g.id !== req.params.id);
+app.post('/admin/alben/:id/delete', requireAdmin, (req, res) => {
+  db.alben = db.alben.filter(a => a.id !== req.params.id);
   save();
   res.redirect('/admin#galerie');
+});
+app.post('/admin/alben/:id/fotos', requireAdmin, upload.array('bilder', 30), (req, res) => {
+  const album = db.alben.find(a => a.id === req.params.id);
+  if (album) {
+    (req.files || []).forEach(f => {
+      album.fotos.push({ id: uid(), bild: '/media/uploads/' + f.filename, titel: req.body.titel || '' });
+    });
+    save();
+  }
+  res.redirect('/admin?saved=fotos#galerie');
+});
+app.post('/admin/alben/:id/fotos/:fid/delete', requireAdmin, (req, res) => {
+  const album = db.alben.find(a => a.id === req.params.id);
+  if (album) {
+    album.fotos = album.fotos.filter(f => f.id !== req.params.fid);
+    save();
+  }
+  res.redirect('/admin#galerie');
+});
+
+/* --- Chronik --- */
+app.post('/admin/chronik', requireAdmin, (req, res) => {
+  const existing = req.body.id && db.chronik.find(c => c.id === req.body.id);
+  const data = { jahr: req.body.jahr, titel: req.body.titel, text: req.body.text };
+  if (existing) Object.assign(existing, data);
+  else db.chronik.push(Object.assign({ id: uid() }, data));
+  save();
+  res.redirect('/admin?saved=chronik#chronik');
+});
+app.post('/admin/chronik/:id/delete', requireAdmin, (req, res) => {
+  db.chronik = db.chronik.filter(c => c.id !== req.params.id);
+  save();
+  res.redirect('/admin#chronik');
 });
 
 /* --- Mitglieder --- */
@@ -311,15 +369,6 @@ app.post('/admin/mitglieder/:id/delete', requireAdmin, (req, res) => {
   db.mitglieder = db.mitglieder.filter(m => m.id !== req.params.id);
   save();
   res.redirect('/admin#mitglieder');
-});
-
-/* --- Startseiten-Foto etc. --- */
-app.post('/admin/homefoto', requireAdmin, upload.single('bild'), (req, res) => {
-  if (req.file) {
-    db.galerie.push({ id: uid(), bild: '/media/uploads/' + req.file.filename, titel: req.body.titel || 'Neues Foto' });
-    save();
-  }
-  res.redirect('/admin?saved=foto#galerie');
 });
 
 app.use((req, res) => res.status(404).render('404', { title: 'Nicht gefunden' }));

@@ -111,11 +111,33 @@
       "body": "Am 11.11.2025 um 11:11 Uhr war es wieder so weit – die fünfte Jahreszeit hat begonnen!\n\nDiese Saison sind wir unter anderem wieder in Mödling unterwegs. Alle Termine findet ihr wie immer unter Termine.\n\nOre Ore etz konn d'Latschasorri!!"
     }
   ],
-  "galerie": [
-    { "id": "g1", "bild": "/media/mirror/mannschaft-wien-2024.jpg", "titel": "Unsere Mannschaft in Wien 2024" },
-    { "id": "g2", "bild": "/media/mirror/vorstand-2023.jpg", "titel": "Unser Vorstand" },
-    { "id": "g3", "bild": "/media/mirror/trompeten.jpg", "titel": "Trompeten im Einsatz" },
-    { "id": "g4", "bild": "/media/mirror/posaunen.jpg", "titel": "Posaunen" },
-    { "id": "g5", "bild": "/media/mirror/schlagwerk.jpg", "titel": "Schlagwerk" }
+  "alben": [
+    {
+      "id": "a1",
+      "titel": "Unsere Mannschaft",
+      "beschreibung": "Die Truppe in voller Montur",
+      "fotos": [
+        { "id": "g1", "bild": "/media/mirror/mannschaft-wien-2024.jpg", "titel": "Unsere Mannschaft in Wien 2024" },
+        { "id": "g2", "bild": "/media/mirror/vorstand-2023.jpg", "titel": "Unser Vorstand" }
+      ]
+    },
+    {
+      "id": "a2",
+      "titel": "Instrumente im Einsatz",
+      "beschreibung": "Blech, Trommeln und Glöggli",
+      "fotos": [
+        { "id": "g3", "bild": "/media/mirror/trompeten.jpg", "titel": "Trompeten im Einsatz" },
+        { "id": "g4", "bild": "/media/mirror/posaunen.jpg", "titel": "Posaunen" },
+        { "id": "g5", "bild": "/media/mirror/schlagwerk.jpg", "titel": "Schlagwerk" }
+      ]
+    }
+  ],
+  "chronik": [
+    { "id": "c1", "jahr": "Juni 1999", "titel": "Die Gründung", "text": "Die Guggamusik „Partener Latschasorri\" wurde im Juni 1999 erstmals schriftlich erwähnt. Aus Spaß an der Freude wurde über einen Postwurf Werbung für die Gründung einer Guggamusik im hintersten Montafon gemacht. Da Partenen ein ziemlich kleines Dörfchen ist und über 30 Vereine gemeldet sind, gab es wenig Hoffnung für Interessierte. Doch Erstens kommt es anders und Zweitens als man denkt: Schon bei der ersten Versammlung kamen über 30 Interessierte – und schnell wurde klar: Ja, wir wollen „GUGGEN\"!" },
+    { "id": "c2", "jahr": "1999", "titel": "Erste Schritte", "text": "Jeder hatte innerhalb kürzester Zeit sein eigen erstandenes Instrument und dabei viel Geld investiert. Ja, und dann wussten wir nicht weiter… Zwei Musikanten der Bürgermusik unserer Gemeinde halfen uns über die ersten Schwierigkeiten hinweg und versuchten mühsam, uns beizubringen, wie man ein Instrument hält und dann auch noch einen Ton herausbringt. Lange Proben, viel Schweiß und unzählige Stunden stellten uns auf eine harte Probe." },
+    { "id": "c3", "jahr": "2000", "titel": "Erster Auftritt zum Millennium", "text": "Wir übten fleißig und wollten unbedingt zum Millennium 2000 unseren ersten Auftritt. Und man höre und staune: Tatsächlich rückten wir mit selbst gebastelten Hüten und insgesamt DREI Stücken selbstbewusst aus und marschierten durch unsere Dorfstraße hinauf. Wir wurden nicht enttäuscht – unser Auftritt wurde mit viel Applaus und unseren ersten Spenden honoriert." },
+    { "id": "c4", "jahr": "2001", "titel": "Erstes Kostüm & eigener Verein", "text": "Kurz darauf erstanden wir unser erstes Kostüm und starteten gespannt in den ersten Fasching. Nach der ersten Saison stand fest: Wir geben unserem Verein einen Namen – und so wurden wir ein registrierter Verein, die Guggamusik „Partener Latschasorri\"." },
+    { "id": "c5", "jahr": "Der Name", "titel": "Latscha + Sorri", "text": "Der Name leitet sich von den Kieferngewächsen ab, die man bei uns überall in höheren Lagen findet – auch „Latscha\" genannt. Und „Sorri\"? Davon kann jeder Mann ein Liedchen singen, wenn er zu spät nach Hause kommt und seine Liebste nicht mehr ganz nett zu ihm ist. Also: „Latschasorri\"!" },
+    { "id": "c6", "jahr": "Heute", "titel": "Weit über das Tal hinaus", "text": "Inzwischen können wir mit einigen Fernsehauftritten beim ORF Kärnten in Klagenfurt, einer Einladung in die österreichische Botschaft nach Luxemburg, diversen Benefizveranstaltungen, Straßenspektakeln im Sommer und vielen Auftritten im Tal und unserer Gemeinde glänzen. Ein besonderer Dank gilt all jenen, die an uns geglaubt haben, uns tatkräftig und finanziell unterstützen oder als Publikum mit dabei sind." }
   ]
 }
