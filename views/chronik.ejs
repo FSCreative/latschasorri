@@ -1,14 +1,23 @@
 <%- include('partials/header') %>
 
 <section class="pagehead reveal">
-  <h1><%= texts.chronikTitle %></h1>
-  <p>Wie aus einem Postwurf eine Guggamusik wurde.</p>
+  <h1>Chronik</h1>
+  <p>Wie aus einem Postwurf eine Guggamusik wurde – klick dich durch unsere Geschichte.</p>
 </section>
 
-<article class="article reveal">
-  <div class="article-body chronik">
-    <% texts.chronikBody.split('\n').filter(p => p.trim()).forEach(p => { %><p><%= p %></p><% }) %>
+<div class="tl" id="timeline">
+  <% chronik.forEach((c, i) => { %>
+  <div class="tl-item reveal <%= i % 2 ? 'flip' : '' %>">
+    <div class="tl-dot"></div>
+    <article class="tl-card" tabindex="0">
+      <span class="tl-year"><%= c.jahr %></span>
+      <h3><%= c.titel %></h3>
+      <div class="tl-text"><p><%= c.text %></p></div>
+      <span class="tl-more">Mehr lesen ↓</span>
+    </article>
   </div>
-</article>
+  <% }) %>
+  <div class="tl-end reveal">🎺 …und die Reise geht weiter! Ore Ore!</div>
+</div>
 
 <%- include('partials/footer') %>

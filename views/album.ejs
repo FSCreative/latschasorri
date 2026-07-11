@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+<section class="pagehead reveal">
+  <a class="back" href="/galerie">← Alle Alben</a>
+  <h1><%= album.titel %></h1>
+  <% if (album.beschreibung) { %><p><%= album.beschreibung %></p><% } %>
+</section>
+
+<% if (album.fotos.length === 0) { %>
+<p class="hint reveal">Dieses Album ist noch leer.</p>
+<% } %>
+
+<section class="masonry reveal">
+  <% album.fotos.forEach(f => { %>
+  <figure class="shot">
+    <img loading="lazy" src="<%= f.bild %>" alt="<%= f.titel %>" data-lightbox>
+    <% if (f.titel) { %><figcaption><%= f.titel %></figcaption><% } %>
+  </figure>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

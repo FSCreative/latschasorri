@@ -8,7 +8,8 @@
 
 <div class="chips reveal">
   <button class="chip on" data-tab="a-berichte">📝 Berichte</button>
-  <button class="chip" data-tab="a-galerie">📷 Fotos</button>
+  <button class="chip" data-tab="a-galerie">📷 Alben & Fotos</button>
+  <button class="chip" data-tab="a-chronik">🕰 Chronik</button>
   <button class="chip" data-tab="a-termine">📅 Termine</button>
   <button class="chip" data-tab="a-mitglieder">🧑‍🤝‍🧑 Mitglieder</button>
   <button class="chip" data-tab="a-texte">✏️ Texte</button>
@@ -41,25 +42,69 @@
   </ul>
 </section>
 
-<!-- ===== Galerie ===== -->
+<!-- ===== Galerie: Alben ===== -->
 <section class="tab adminpanel hidden" id="tab-a-galerie">
-  <h2 id="galerie">Fotos hochladen</h2>
-  <form method="post" action="/admin/galerie" enctype="multipart/form-data" class="adminform">
-    <label>Bilder (mehrere möglich) <input type="file" name="bilder" accept="image/*" multiple required></label>
-    <label>Bildunterschrift (für alle) <input name="titel" placeholder="z. B. Umzug Vandans 2026"></label>
-    <button class="btn primary" type="submit">Hochladen</button>
+  <h2 id="galerie">Album anlegen / bearbeiten</h2>
+  <form method="post" action="/admin/alben" class="adminform row" id="albumForm">
+    <input type="hidden" name="id" id="af-id">
+    <label>Album-Titel <input name="titel" id="af-titel" placeholder="z. B. Fasching 2026" required></label>
+    <label>Beschreibung <input name="beschreibung" id="af-beschreibung" placeholder="optional"></label>
+    <button class="btn primary" type="submit">Album speichern</button>
+    <button class="btn ghost" type="button" id="af-reset" style="display:none">Neu / Abbrechen</button>
   </form>
 
-  <h2>Galerie verwalten</h2>
-  <div class="admingrid">
-    <% [...db.galerie].reverse().forEach(g => { %>
-    <figure>
-      <img src="<%= g.bild %>" alt="">
-      <figcaption><%= g.titel || '–' %></figcaption>
-      <form method="post" action="/admin/galerie/<%= g.id %>/delete" onsubmit="return confirm('Foto löschen?')"><button class="btn mini danger" type="submit">✕</button></form>
-    </figure>
-    <% }) %>
+  <% db.alben.forEach(a => { %>
+  <div class="album-admin">
+    <div class="album-admin-head">
+      <h3><%= a.titel %> <small>(<%= a.fotos.length %> Fotos)</small></h3>
+      <span class="actions">
+        <button class="btn mini" type="button" data-edit-album='<%- JSON.stringify({id:a.id,titel:a.titel,beschreibung:a.beschreibung||""}).replace(/'/g,"&#39;") %>'>Bearbeiten</button>
+        <form method="post" action="/admin/alben/<%= a.id %>/delete" onsubmit="return confirm('Album samt allen Fotos löschen?')"><button class="btn mini danger" type="submit">Album löschen</button></form>
+      </span>
+    </div>
+    <form method="post" action="/admin/alben/<%= a.id %>/fotos" enctype="multipart/form-data" class="adminform row">
+      <label>Fotos hochladen (mehrere möglich) <input type="file" name="bilder" accept="image/*" multiple required></label>
+      <label>Bildunterschrift (für alle) <input name="titel" placeholder="optional"></label>
+      <button class="btn primary" type="submit">In dieses Album laden</button>
+    </form>
+    <% if (a.fotos.length) { %>
+    <div class="admingrid">
+      <% [...a.fotos].reverse().forEach(f => { %>
+      <figure>
+        <img src="<%= f.bild %>" alt="">
+        <figcaption><%= f.titel || '–' %></figcaption>
+        <form method="post" action="/admin/alben/<%= a.id %>/fotos/<%= f.id %>/delete" onsubmit="return confirm('Foto löschen?')"><button class="btn mini danger" type="submit">✕</button></form>
+      </figure>
+      <% }) %>
+    </div>
+    <% } %>
   </div>
+  <% }) %>
+</section>
+
+<!-- ===== Chronik ===== -->
+<section class="tab adminpanel hidden" id="tab-a-chronik">
+  <h2 id="chronik">Station anlegen / bearbeiten</h2>
+  <form method="post" action="/admin/chronik" class="adminform" id="chronikForm">
+    <input type="hidden" name="id" id="cf-id">
+    <label>Jahr / Zeitraum <input name="jahr" id="cf-jahr" placeholder="z. B. 2005 oder Heute" required></label>
+    <label>Titel <input name="titel" id="cf-titel" required></label>
+    <label>Text <textarea name="text" id="cf-text" rows="6" required></textarea></label>
+    <button class="btn primary" type="submit">Station speichern</button>
+    <button class="btn ghost" type="button" id="cf-reset" style="display:none">Neu / Abbrechen</button>
+  </form>
+
+  <ul class="adminlist">
+    <% db.chronik.forEach(c => { %>
+    <li>
+      <span><strong><%= c.jahr %></strong> · <%= c.titel %></span>
+      <span class="actions">
+        <button class="btn mini" type="button" data-edit-chronik='<%- JSON.stringify({id:c.id,jahr:c.jahr,titel:c.titel,text:c.text}).replace(/'/g,"&#39;") %>'>Bearbeiten</button>
+        <form method="post" action="/admin/chronik/<%= c.id %>/delete" onsubmit="return confirm('Station löschen?')"><button class="btn mini danger" type="submit">Löschen</button></form>
+      </span>
+    </li>
+    <% }) %>
+  </ul>
 </section>
 
 <!-- ===== Termine ===== -->
@@ -130,7 +175,7 @@
     <label>Termine – Überschrift <input name="termineTitle" value="<%= db.texts.termineTitle %>"></label>
     <label>Termine – Einleitung <input name="termineIntro" value="<%= db.texts.termineIntro %>"></label>
     <label>Gönner-Text <textarea name="goennerBody" rows="6"><%= db.texts.goennerBody %></textarea></label>
-    <label>Chronik <textarea name="chronikBody" rows="14"><%= db.texts.chronikBody %></textarea></label>
+    <p class="hint">Die Chronik wird jetzt als Zeitstrahl im Tab „🕰 Chronik" gepflegt.</p>
     <button class="btn primary" type="submit">Texte speichern</button>
   </form>
 </section>

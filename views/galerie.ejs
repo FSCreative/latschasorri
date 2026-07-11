@@ -2,19 +2,30 @@
 
 <section class="pagehead reveal">
   <h1>Galerie</h1>
-  <p>Aktuelle Fotos – ältere Schätze findest du im <a href="<%= s.archiveGallery %>" target="_blank" rel="noopener">Galerie-Archiv</a>.</p>
+  <p>Unsere Foto-Alben – ältere Schätze findest du im <a href="<%= s.archiveGallery %>" target="_blank" rel="noopener">Galerie-Archiv</a>.</p>
 </section>
 
-<% if (galerie.length === 0) { %>
-<p class="hint reveal">Noch keine Fotos – bald gibt's hier was zu sehen!</p>
+<% if (alben.length === 0) { %>
+<p class="hint reveal">Noch keine Alben – bald gibt's hier was zu sehen!</p>
 <% } %>
 
-<section class="masonry reveal">
-  <% galerie.forEach(g => { %>
-  <figure class="shot">
-    <img loading="lazy" src="<%= g.bild %>" alt="<%= g.titel %>" data-lightbox>
-    <% if (g.titel) { %><figcaption><%= g.titel %></figcaption><% } %>
-  </figure>
+<section class="albums reveal">
+  <% alben.forEach(a => { const cover = a.fotos[0]; %>
+  <a class="album-card" href="/galerie/<%= a.id %>">
+    <div class="album-cover">
+      <% if (cover) { %>
+        <img loading="lazy" src="<%= cover.bild %>" alt="<%= a.titel %>">
+        <% if (a.fotos[1]) { %><img class="album-back" loading="lazy" src="<%= a.fotos[1].bild %>" alt=""><% } %>
+      <% } else { %>
+        <div class="album-empty">📷</div>
+      <% } %>
+      <span class="album-count"><%= a.fotos.length %> Foto<%= a.fotos.length === 1 ? '' : 's' %></span>
+    </div>
+    <div class="album-info">
+      <h3><%= a.titel %></h3>
+      <% if (a.beschreibung) { %><p><%= a.beschreibung %></p><% } %>
+    </div>
+  </a>
   <% }) %>
 </section>
 
