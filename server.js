@@ -34,6 +34,10 @@ for (const k of Object.keys(seedData)) {
 for (const k of Object.keys(seedData.settings)) {
   if (db.settings[k] === undefined) db.settings[k] = seedData.settings[k];
 }
+/* Einmalig: alten Standard-Begrüßungstext entfernen */
+if ((db.texts.homeBody || '').startsWith('Die Faschingssaison 25/26')) {
+  db.texts.homeBody = '';
+}
 save();
 const uid = () => crypto.randomBytes(5).toString('hex');
 
