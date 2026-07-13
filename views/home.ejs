@@ -6,7 +6,9 @@
     <p class="eyebrow">Guggamusik aus Partenen · seit <%= s.since %></p>
     <h1>Ore Ore –<br><span class="grad">etz konn d'Latschasorri!</span></h1>
     <p class="hero-sub"><%= texts.homeTitle %></p>
+    <% if (texts.homeBody && texts.homeBody.trim()) { %>
     <p class="hero-text"><%- texts.homeBody.split('\n').join('<br>') %></p>
+    <% } %>
     <div class="hero-actions">
       <a class="btn primary" href="/termine">🎺 Alle Termine</a>
       <a class="btn ghost" href="/berichte">Neuigkeiten</a>
