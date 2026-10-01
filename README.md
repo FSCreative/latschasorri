@@ -38,3 +38,7 @@ npm install
 ADMIN_PASSWORD=test npm start
 # http://localhost:3000
 ```
+
+## Hinweis zur Erstellung
+
+Bei der Erstellung dieser Website wurden teilweise KI-gestützte Werkzeuge eingesetzt. Alle Inhalte wurden redaktionell geprüft.
