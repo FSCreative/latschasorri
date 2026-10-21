@@ -82,6 +82,24 @@ function requireAdmin(req, res, next) {
   res.redirect('/admin/login');
 }
 
+/* ---------- Cookie-Banner (FS Consent) ----------
+   Eingebetteter Widget-Code aus dem Admin (z. B. Instagram/SnapWidget) wird erst nach
+   Einwilligung „Externe Medien“ geladen: iframe src → data-src, Skripte → type="text/plain". */
+function consentEmbed(html) {
+  if (!html) return '';
+  const svc = /snapwidget/i.test(html) ? 'SnapWidget (Instagram)' : 'Instagram';
+  return String(html)
+    .replace(/<iframe\b([^>]*)>/gi, (m, attrs) => {
+      if (/\sdata-consent\s*=/i.test(attrs)) return m;
+      return '<iframe data-consent="media" data-service="' + svc + '"' + attrs.replace(/\ssrc\s*=/i, ' data-src=') + '>';
+    })
+    .replace(/<script\b([^>]*)>/gi, (m, attrs) => {
+      if (/\sdata-consent\s*=/i.test(attrs) || /\stype\s*=\s*["']?application\/(ld\+)?json/i.test(attrs)) return m;
+      return '<script type="text/plain" data-consent="media"' + attrs.replace(/\stype\s*=/i, ' data-type=') + '>';
+    });
+}
+app.locals.consentEmbed = consentEmbed;
+
 /* ---------- Middleware ---------- */
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

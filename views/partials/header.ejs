@@ -9,10 +9,20 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/media/mirror/logo.png">
 <link rel="apple-touch-icon" href="/media/mirror/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css?v=<%= v %>">
 <link rel="stylesheet" href="/css/style.css?v=<%= v %>">
+<% if (!path.startsWith('/admin')) { %>
+<link rel="stylesheet" href="/css/fs-consent.css?v=<%= v %>">
+<!-- Cookie-Banner (FS Consent). Es gibt (noch) keine Datenschutz-/Impressumsseite → keine Links im Banner. -->
+<script type="application/json" id="fs-consent-config">
+{
+  "privacyUrl": false,
+  "position": "bottom-left",
+  "tone": "du",
+  "categories": { "media": ["Instagram"] }
+}
+</script>
+<% } %>
 </head>
 <body>
 <div class="bg-fx" aria-hidden="true"></div>

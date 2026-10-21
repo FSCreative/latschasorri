@@ -24,7 +24,7 @@
       <% } %>
     </div>
   </div>
-  <p class="copyright">© <%= new Date().getFullYear() %> Guggamusik Partener Latschasorri · Partenen im Montafon</p>
+  <p class="copyright">© <%= new Date().getFullYear() %> Guggamusik Partener Latschasorri · Partenen im Montafon<% if (!path.startsWith('/admin')) { %> · <a href="#cookie-einstellungen">Cookie-Einstellungen</a><% } %></p>
 </footer>
 
 <nav class="appbar" aria-label="Hauptnavigation">
@@ -71,5 +71,6 @@
 <div class="lightbox" id="lightbox"><img src="" alt=""><button id="lbClose" aria-label="Schließen">✕</button></div>
 
 <script src="/js/app.js?v=<%= v %>"></script>
+<% if (!path.startsWith('/admin')) { %><script src="/js/fs-consent.js?v=<%= v %>" defer></script><% } %>
 </body>
 </html>

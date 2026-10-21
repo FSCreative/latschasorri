@@ -65,21 +65,49 @@
     </aside>
     <div class="insta-main">
       <% if (instaPosts && instaPosts.length) { %>
-      <div class="instagrid">
+      <!-- Bilder liegen auf Instagram-Servern (Meta) → erst nach Einwilligung „Externe Medien“ laden (FS Consent) -->
+      <div class="instagrid" id="igGrid" style="display:none">
         <% instaPosts.forEach(p => { %>
         <a href="<%= p.link %>" target="_blank" rel="noopener">
-          <img loading="lazy" src="<%= p.img %>" alt="<%= p.caption || 'Instagram-Beitrag' %>">
+          <img loading="lazy" data-src="<%= p.img %>" alt="<%= p.caption || 'Instagram-Beitrag' %>">
           <% if (p.video) { %><span class="playicon">▶</span><% } %>
           <% if (p.caption) { %><span class="insta-cap"><%= p.caption %></span><% } %>
         </a>
         <% }) %>
       </div>
+      <div class="fsc-ph fsc-ph-other instafeed-ph" id="igPh">
+        <div class="fsc-ph-inner">
+          <p class="fsc-ph-title">Instagram</p>
+          <p class="fsc-ph-text">Hier werden Beiträge von <strong>Instagram</strong> angezeigt. Beim Laden werden Daten wie deine IP-Adresse an Meta übertragen.</p>
+          <button type="button" class="fsc-btn fsc-btn-primary" id="igLoad">Beiträge laden</button>
+          <label class="fsc-ph-remember"><input type="checkbox" id="igRemember"> Externe Medien immer erlauben</label>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var grid = document.getElementById('igGrid'), ph = document.getElementById('igPh');
+          if (!grid || !ph) return;
+          function show() {
+            if (grid.style.display !== 'none') return;
+            grid.querySelectorAll('img[data-src]').forEach(function (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
+            grid.style.display = '';
+            if (ph.parentNode) ph.parentNode.removeChild(ph);
+          }
+          document.getElementById('igLoad').addEventListener('click', function () {
+            if (document.getElementById('igRemember').checked && window.FSConsent) window.FSConsent.allow('media'); else show();
+          });
+          function check() { if (window.FSConsent && window.FSConsent.has('media')) show(); }
+          window.addEventListener('fs-consent:ready', check);
+          window.addEventListener('fs-consent:change', check);
+          check();
+        })();
+      </script>
       <% } else { %>
       <div class="instafeed">
         <% if (s.instagramEmbed) { %>
-          <%- s.instagramEmbed %>
+          <%- consentEmbed(s.instagramEmbed) %>
         <% } else { %>
-          <iframe src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+          <iframe data-consent="media" data-service="Instagram" data-src="https://www.instagram.com/<%= s.instagramHandle %>/embed" title="Instagram-Feed von @<%= s.instagramHandle %>" loading="lazy" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
         <% } %>
       </div>
       <% } %>
